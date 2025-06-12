@@ -57,8 +57,14 @@ public class SpringIocDemoApplication  {
 						break;
 					}
 					case 4 : {
+
 						System.out.print("Enter student ID to Update : ");
 						int oid = new Scanner(System.in).nextInt();
+						Student existing = studentService.getStudentById(oid);
+						if (existing == null) {
+							System.out.println("Student with ID " + oid + " not found.");
+							break;
+						}
 						System.out.println("============== INSERT STUDENT ================");
 						System.out.print("Enter student ID : ");
 						int nid = new Scanner(System.in).nextInt();
@@ -69,15 +75,23 @@ public class SpringIocDemoApplication  {
 						System.out.print("Enter Student Score : ");
 						double score = new Scanner(System.in).nextDouble();
 						Student updatestudent = new Student(nid, name, gender, score);
-						studentService.updateStudentById(oid, updatestudent);
-						System.out.println("\n [+] Student Updated Successfully !!");
+						boolean updated = studentService.updateStudentById(oid, updatestudent);
+						if (updated) {
+							System.out.println("\n [+] Student Updated Successfully !!");
+						}
 						break;
+
 					}
 					case 5: {
 						System.out.print("Enter student ID to Delete : ");
 						int oid = new Scanner(System.in).nextInt();
-						studentService.deleteStudentById(oid);
-						System.out.println("\n [+] Student Deleted Successfully !!");
+						boolean deleted = studentService.deleteStudentById(oid);
+						if (deleted) {
+							System.out.println("✅ Student with ID " + oid + " has been deleted.");
+
+						} else {
+						System.out.println("[-] No student found with ID " + oid + ". Nothing was deleted.");
+					}
 						break;
 					}
 					default: {

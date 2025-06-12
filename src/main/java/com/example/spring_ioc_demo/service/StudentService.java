@@ -42,6 +42,7 @@ public class StudentService {
 
         if (existingStudent.isPresent()) {
             Student s = existingStudent.get();
+            s.setId(updatedStudent.getId());
             s.setFullName(updatedStudent.getFullName());
             s.setGender(updatedStudent.getGender());
             s.setScore(updatedStudent.getScore());
